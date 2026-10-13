@@ -29,3 +29,21 @@ if rows:
             st.success("Status updated. Refresh to see latest queue.")
 else:
     st.info("No tickets yet. Submit a demo ticket above.")
+
+st.subheader("Machine-learning demonstration")
+st.caption("Models are trained on templated synthetic tickets and simulated outcomes. Not suitable for live triage.")
+from ml_models import train_and_evaluate, predict_ticket
+with st.form("ml_demo"):
+    example=st.text_input("Example ticket for ML analysis",value="User cannot login to cloud portal")
+    if st.form_submit_button("Run ML demonstration"):
+        result=predict_ticket(example,example)
+        st.write("Suggested team:",result["team"])
+        st.write("Suggested priority:",result["priority"])
+        st.write("Simulated SLA breach probability:",round(result["simulated_sla_breach_risk"],3))
+if st.button("Evaluate synthetic models"):
+    _,_,metrics=train_and_evaluate()
+    st.metric("Team classification accuracy",f"{metrics['classification_accuracy']:.1%}")
+    st.metric("Simulated SLA ROC-AUC",f"{metrics['breach_roc_auc']:.3f}")
+    st.metric("Simulated SLA Brier score",f"{metrics['breach_brier_score']:.3f}")
+    st.code(metrics["classification_report"])
+    st.caption("Synthetic train/test split; metrics do not establish real-world performance.")
