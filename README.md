@@ -1,5 +1,8 @@
 # AI-Powered Service Desk & Workflow Automation
 
+[![Python unit tests](https://github.com/arqam3025/ai-service-desk-automation/actions/workflows/tests.yml/badge.svg)](https://github.com/arqam3025/ai-service-desk-automation/actions/workflows/tests.yml)
+
+
 **Status:** Local portfolio application with SQLite ticket workflows and **synthetic-data machine learning experiments**. Not validated for real support operations.
 
 ## Implemented
